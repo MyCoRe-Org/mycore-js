@@ -1,0 +1,11 @@
+{
+  "name": "@mycore/mycore",
+  "version": "1.0.0",
+  "exports": {
+  },
+  "publish": {
+    "include": [
+      "src/**/*.ts"
+    ]
+  }
+}
