@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "lib": ["esnext", "dom"],
+  },
+  "include": ["src/**/*.ts"]
+}

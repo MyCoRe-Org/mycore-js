@@ -1,0 +1,18 @@
+{
+  "name": "@golsch/test",
+  "version": "1.0.41",
+  "exports": {
+    "./i18n": "./src/i18n/index.ts",
+    "./auth": "./src/auth/index.ts",
+    "./common/client": "./src/common/client/index.ts",
+    "./orcid": "./src/orcid/index.ts",
+    "./common/cache": "./src/common/cache/index.ts",
+    "./acl/accesskey": "./src/acl/accesskey/index.ts"
+  },
+  "publish": {
+    "include": [
+      "src/**/*.ts"
+    ]
+  }
+}
+
