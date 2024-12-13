@@ -16,7 +16,7 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { handleError } from './error';
+import { handleError } from './error.ts';
 
 /**
  * Creates a `URL` object by combining a base URL, a path, query parameters and a fragment.
@@ -34,11 +34,11 @@ const createUrl = (
   baseUrl: URL | string,
   path?: string,
   queryParams?: Record<string, string | number>,
-  fragment?: string
+  fragment?: string,
 ): URL => {
   let url;
   try {
-    url = (path) ? new URL(path, baseUrl) : new URL (baseUrl);
+    url = path ? new URL(path, baseUrl) : new URL(baseUrl);
   } catch (error) {
     return handleError('Invalid URL input', error);
   }

@@ -21,8 +21,7 @@
  *
  * @typeParam T - The type of the cached values. This can be any type, such as `string`, `number`, or more complex objects
  */
-interface MCRCache<T> {
-
+export interface MCRCache<T> {
   /**
    * Sets a value in the cache with an optional time-to-live (TTL) in seconds.
    *
@@ -67,5 +66,3 @@ interface MCRCache<T> {
    */
   size(): number;
 }
-
-export { MCRCache };

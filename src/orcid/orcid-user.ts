@@ -16,13 +16,12 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { handleError } from '../common/error';
+import { handleError } from '../common/error.ts';
 
 /**
  * Interface representing the status of an ORCID user.
  */
-interface MCROrcidUserStatus {
-
+export interface MCROrcidUserStatus {
   /**
    * A list of ORCIDs associated with the user.
    */
@@ -37,7 +36,7 @@ interface MCROrcidUserStatus {
 /**
  * Interface representing the settings for an ORCID user.
  */
-interface MCROrcidUserSettings {
+export interface MCROrcidUserSettings {
   /**
    * A flag indicating if works should always be updated.
    * `null` means that no preference has been set.
@@ -66,8 +65,7 @@ interface MCROrcidUserSettings {
 /**
  * Service for interacting with ORCID user status and settings.
  */
-class MCROrcidUserService {
-
+export class MCROrcidUserService {
   private baseUrl: URL;
 
   /**
@@ -86,17 +84,24 @@ class MCROrcidUserService {
    * @returns A promise that resolves to an `MCROrcidUserStatus` object containing the user status
    * @throws If the fetch operation fails or if the response is not successful
    */
-  public fetchOrcidUserStatus = async (accessToken: string): Promise<MCROrcidUserStatus> => {
+  public fetchOrcidUserStatus = async (
+    accessToken: string,
+  ): Promise<MCROrcidUserStatus> => {
     let response: Response;
     try {
-      response = await fetch(new URL('api/orcid/v1/user-status', this.baseUrl), {
-        headers: { Authorization: `Bearer ${accessToken}`}
-      });
+      response = await fetch(
+        new URL('api/orcid/v1/user-status', this.baseUrl),
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
+      );
     } catch (error) {
       return handleError('Error while fetching Orcid user status', error);
     }
     if (!response.ok) {
-      throw new Error(`Failed to fetch Orcid user status: ${String(response.status)}`);
+      throw new Error(
+        `Failed to fetch Orcid user status: ${String(response.status)}`,
+      );
     }
     return await response.json() as MCROrcidUserStatus;
   };
@@ -111,13 +116,16 @@ class MCROrcidUserService {
    */
   public fetchOrcidUserSettings = async (
     accessToken: string,
-    orcid: string
+    orcid: string,
   ): Promise<MCROrcidUserSettings> => {
     let response: Response;
     try {
-      response = await fetch(`${this.baseUrl}api/orcid/v1/user-properties/${orcid}`, {
-        headers: { Authorization: `Bearer ${accessToken}`},
-      });
+      response = await fetch(
+        `${this.baseUrl}api/orcid/v1/user-properties/${orcid}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
+      );
     } catch (error) {
       return handleError('Error while fetching Orcid user settings', error);
     }
@@ -139,18 +147,21 @@ class MCROrcidUserService {
   public updateOrcidUserSettings = async (
     accessToken: string,
     orcid: string,
-    settings: MCROrcidUserSettings
+    settings: MCROrcidUserSettings,
   ): Promise<void> => {
     let response: Response;
     try {
-      response = await fetch(`${this.baseUrl}api/orcid/v1/user-properties/${orcid}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
+      response = await fetch(
+        `${this.baseUrl}api/orcid/v1/user-properties/${orcid}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(settings),
         },
-        body: JSON.stringify(settings),
-      });
+      );
     } catch (error) {
       return handleError('Error while fetching Orcid user settings', error);
     }
@@ -159,5 +170,3 @@ class MCROrcidUserService {
     }
   };
 }
-
-export { MCROrcidUserService, MCROrcidUserStatus, MCROrcidUserSettings };

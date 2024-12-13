@@ -16,18 +16,18 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MCRCache } from './cache';
+import { MCRCache } from './cache.ts';
 
 /**
  * A memory-based cache implementation that stores values in memory using a `Map` with optional TTL (Time-to-Live).
  *
  * @typeParam T - The type of the cached values. This can be any type, such as `string`, `number`, or more complex objects
  */
-class MCRMemoryCache<T> implements MCRCache<T> {
+export class MCRMemoryCache<T> implements MCRCache<T> {
   private cache: Map<string, { value: T; expiry: number | null }>;
 
   constructor() {
-    this.cache  = new Map();
+    this.cache = new Map();
   }
 
   /**
@@ -85,5 +85,3 @@ class MCRMemoryCache<T> implements MCRCache<T> {
     return this.cache.size;
   }
 }
-
-export { MCRMemoryCache };

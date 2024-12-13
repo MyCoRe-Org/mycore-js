@@ -16,7 +16,7 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { handleError } from '../common/error';
+import { handleError } from '../common/error.ts';
 
 /**
  * Interface representing the status of an ORCID work.
@@ -24,8 +24,7 @@ import { handleError } from '../common/error';
  * The `MCROrcidWorkStatus` interface describes the status of a work, including whether the work
  * belongs to the user (`own`) and any other associated works (`other`).
  */
-interface MCROrcidWorkStatus {
-
+export interface MCROrcidWorkStatus {
   /**
    * The put code string of the work owned by the user.
    * If no status is available, this will be `null`.
@@ -44,8 +43,7 @@ interface MCROrcidWorkStatus {
  * This service allows you to fetch the status of a work by its `objectId` and ORCID, and to export
  * works to ORCID. It can operate in both "member" and "public" modes.
  */
-class MCROrcidWorkService {
-
+export class MCROrcidWorkService {
   private baseUrl: URL;
 
   /**
@@ -75,14 +73,17 @@ class MCROrcidWorkService {
     accessToken: string,
     orcid: string,
     objectId: string,
-    useMember = false
+    useMember = false,
   ): Promise<MCROrcidWorkStatus> => {
     const mode = useMember ? 'member' : 'public';
-    const url = new URL(`api/orcid/v1/${mode}/${orcid}/works/object/${objectId}`, this.baseUrl);
+    const url = new URL(
+      `api/orcid/v1/${mode}/${orcid}/works/object/${objectId}`,
+      this.baseUrl,
+    );
     let response: Response;
     try {
       response = await fetch(url, {
-        headers: { Authorization: `Bearer ${accessToken}`}
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
     } catch (error) {
       return handleError('Failed to fetch work status', error);
@@ -108,14 +109,17 @@ class MCROrcidWorkService {
   public exportObjectToOrcid = async (
     accessToken: string,
     orcid: string,
-    objectId: string
+    objectId: string,
   ): Promise<void> => {
-    const url = new URL(`api/orcid/v1/member/${orcid}/works/object/${objectId}`, this.baseUrl);
+    const url = new URL(
+      `api/orcid/v1/member/${orcid}/works/object/${objectId}`,
+      this.baseUrl,
+    );
     let response: Response;
     try {
       response = await fetch(url, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${accessToken}`},
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
     } catch (error) {
       return handleError('Failed to request export', error);
@@ -125,5 +129,3 @@ class MCROrcidWorkService {
     }
   };
 }
-
-export { MCROrcidWorkStatus, MCROrcidWorkService };

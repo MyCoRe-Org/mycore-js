@@ -1,3 +1,3 @@
-export * from './orcid-user';
-export * from './orcid-work';
-export * from './orcid-oauth';
+export * from './orcid-user.ts';
+export * from './orcid-work.ts';
+export * from './orcid-oauth.ts';

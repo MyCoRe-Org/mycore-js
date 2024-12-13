@@ -16,9 +16,9 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MCRLangService } from './lang-service';
-import { MCRCache } from '../common/cache/cache';
-import { MCRMemoryCache } from '../common/cache/memory-cache';
+import { MCRLangService } from './lang-service.ts';
+import { MCRCache } from '../common/cache/cache.ts';
+import { MCRMemoryCache } from '../common/cache/memory-cache.ts';
 
 /**
  * Implementation of the `MCRLangService` interface that provides language translation functionality.
@@ -26,7 +26,7 @@ import { MCRMemoryCache } from '../common/cache/memory-cache';
  * This class uses a specified base URL to fetch translations, and stores them in a cache for better performance.
  * The class supports an optional in-memory cache implementation, but it can also accept any custom cache that implements the `MCRCache` interface.
  */
-class MCRLangServiceImpl implements MCRLangService {
+export class MCRLangServiceImpl implements MCRLangService {
   private baseUrl: URL;
 
   private lang: string;
@@ -46,7 +46,7 @@ class MCRLangServiceImpl implements MCRLangService {
   constructor(
     baseUrl: URL | string,
     lang: string,
-    cache: MCRCache<string> = new MCRMemoryCache<string>()
+    cache: MCRCache<string> = new MCRMemoryCache<string>(),
   ) {
     this.baseUrl = new URL(baseUrl);
     this.lang = lang;
@@ -65,11 +65,15 @@ class MCRLangServiceImpl implements MCRLangService {
     try {
       translationData = await this.fetchTranslations(prefix);
     } catch (error) {
-      throw new Error(`Failed to fetch properties for prefix ${prefix}: ${error as string}`);
+      throw new Error(
+        `Failed to fetch properties for prefix ${prefix}: ${error as string}`,
+      );
     }
-    Object.entries(translationData).forEach(([key, translation]: [string, string]) => {
-      this.cache.set(this.getLangKey(key), translation);
-    });
+    Object.entries(translationData).forEach(
+      ([key, translation]: [string, string]) => {
+        this.cache.set(this.getLangKey(key), translation);
+      },
+    );
   };
 
   /**
@@ -77,9 +81,9 @@ class MCRLangServiceImpl implements MCRLangService {
    */
   public translate = async (
     key: string,
-    params?: Record<string, string | number>
+    params?: Record<string, string | number>,
   ): Promise<string> => {
-    let translation = null;
+    let translation: string | undefined;
     if (this.cache.has(this.getLangKey(key))) {
       translation = this.cache.get(key);
     } else {
@@ -107,7 +111,7 @@ class MCRLangServiceImpl implements MCRLangService {
    */
   public get currentLang(): string {
     return this.lang;
-  };
+  }
 
   /**
    * Sets the current language for translations.
@@ -116,26 +120,40 @@ class MCRLangServiceImpl implements MCRLangService {
    */
   public set currentLang(newLang: string) {
     this.lang = newLang;
-  };
+  }
 
-  private replacePlaceholders(translation: string, params: Record<string, string | number>) {
-   return translation.replace(/{(\w+)}/g, (match: string, placeholder: string) => {
-      if (placeholder in params) {
-        return String(params[placeholder] ?? match);
-      }
-      return match;
-    });
-  };
+  private replacePlaceholders(
+    translation: string,
+    params: Record<string, string | number>,
+  ): string {
+    return translation.replace(
+      /{(\w+)}/g,
+      (match: string, placeholder: string) => {
+        if (placeholder in params) {
+          return String(params[placeholder] ?? match);
+        }
+        return match;
+      },
+    );
+  }
 
-  private fetchTranslations = async (prefix: string): Promise<Record<string, string>> => {
+  private fetchTranslations = async (
+    prefix: string,
+  ): Promise<Record<string, string>> => {
     let response: Response;
     try {
-      response = await fetch(new URL(`rsc/locale/translate/${this.lang}/${prefix}`, this.baseUrl));
+      response = await fetch(
+        new URL(`rsc/locale/translate/${this.lang}/${prefix}`, this.baseUrl),
+      );
     } catch {
       throw new Error('Network error occurred');
     }
     if (!response.ok) {
-      throw new Error(`Failed to fetch props for ${prefix}. Status: ${String(response.status)}`);
+      throw new Error(
+        `Failed to fetch props for ${prefix}. Status: ${
+          String(response.status)
+        }`,
+      );
     }
     return await response.json() as Record<string, string>;
   };
@@ -144,5 +162,3 @@ class MCRLangServiceImpl implements MCRLangService {
     return `${this.lang}_${key}`;
   };
 }
-
-export { MCRLangServiceImpl };

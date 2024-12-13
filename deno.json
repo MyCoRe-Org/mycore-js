@@ -1,0 +1,63 @@
+{
+  "name": "@mycore/mycore",
+  "version": "1.0.6",
+  "license": "GPL-3.0",
+  "homepage": "https://www.mycore.de",
+  "repository": "https://github.com/MyCoRe-Org/mycore-js.git",
+  "author": "MyCoRe",
+  "description": "A JS/TS library for MyCoRe.",
+  "exports": {
+    "./i18n": "./src/i18n/index.ts",
+    "./auth": "./src/auth/index.ts",
+    "./orcid": "./src/orcid/index.ts",
+    "./common/cache": "./src/common/cache/index.ts"
+  },
+  "publish": {
+    "include": [
+      "src/**/*.ts"
+    ]
+  },
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "allowJs": false
+  },
+  "nodeModulesDir": "auto",
+  "fmt": {
+    "indent-width": 2,
+    "line-width": 80,
+    "semiColons": true,
+    "proseWrap": "preserve",
+    "singleQuote": true,
+    "use-tabs": false,
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.mdx"]
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "include": [
+        "eqeqeq",
+        "default-param-last",
+        "camelcase",
+        "explicit-function-return-type",
+        "explicit-module-boundary-types",
+        "guard-for-in",
+        "no-await-in-loop",
+        "no-const-assign",
+        "no-eval",
+        "no-inferrable-types",
+        "no-self-compare",
+        "no-sparse-arrays",
+        "no-sync-fn-in-async-fn",
+        "no-throw-literal",
+        "no-top-level-await",
+        "no-undef",
+        "no-useless-rename",
+        "single-var-declarator",
+        "triple-slash-reference"
+      ]
+    }
+  }
+}

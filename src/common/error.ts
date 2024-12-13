@@ -25,7 +25,9 @@
  * @throws Always throws an `Error` with a detailed message, including the provided message and the error's message.
  */
 const handleError = (message: string, error: unknown): never => {
-  throw new Error(`${message}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  throw new Error(
+    `${message}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+  );
 };
 
 export { handleError };

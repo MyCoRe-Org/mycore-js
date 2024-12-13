@@ -16,8 +16,8 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { handleError } from '../common/error';
-import { createUrl } from '../common/url';
+import { handleError } from '../common/error.ts';
+import { createUrl } from '../common/url.ts';
 
 /**
  * Generates the URL for initializing the ORCID OAuth process.
@@ -26,7 +26,10 @@ import { createUrl } from '../common/url';
  * @param scope - An optional scope parameter that defines the level of access requested during OAuth authentication
  * @returns The constructed URL for initiating the ORCID OAuth process
  */
-const getOrcidOAuthInitUrl = (baseUrl: URL | string, scope?: string): URL => {
+export const getOrcidOAuthInitUrl = (
+  baseUrl: URL | string,
+  scope?: string,
+): URL => {
   if (scope) {
     return createUrl(baseUrl, 'rsc/orcid/oauth/init', { 'scope': scope });
   }
@@ -42,10 +45,10 @@ const getOrcidOAuthInitUrl = (baseUrl: URL | string, scope?: string): URL => {
  * @throws If the fetch operation fails or if the response indicates failure
  * @returns A promise that resolves when the revoke operation is completed successfully
  */
-const revokeOrcidOAuth = async (
+export const revokeOrcidOAuth = async (
   baseUrl: URL | string,
   accessToken: string,
-  orcid: string
+  orcid: string,
 ): Promise<void> => {
   const url = createUrl(baseUrl, `rsc/orcid/oauth/${orcid}`);
   let response: Response;
@@ -53,8 +56,8 @@ const revokeOrcidOAuth = async (
     response = await fetch(url, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   } catch (error) {
     return handleError(`Error during fetch for ORCID revoke: ${orcid}`, error);
@@ -63,5 +66,3 @@ const revokeOrcidOAuth = async (
     throw new Error(`Failed to revoke ORCID OAuth: ${String(response.status)}`);
   }
 };
-
-export { getOrcidOAuthInitUrl, revokeOrcidOAuth };

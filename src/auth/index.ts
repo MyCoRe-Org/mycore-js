@@ -1,1 +1,1 @@
-export * from './fetch-jwt';
+export * from './fetch-jwt.ts';

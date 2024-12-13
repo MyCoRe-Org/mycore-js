@@ -19,8 +19,7 @@
 /**
  * Interface for a language service that provides translation functionality.
  */
-interface MCRLangService {
-
+export interface MCRLangService {
   /**
    * Translates a given key into the corresponding language string.
    *
@@ -31,7 +30,10 @@ interface MCRLangService {
    * @param params - A optional record of parameters to replace placeholders in the translation.
    * @returns A promise that resolves to the translated string.
    */
-  translate(key: string, params?: Record<string, string | number>): Promise<string>;
+  translate(
+    key: string,
+    params?: Record<string, string | number>,
+  ): Promise<string>;
 
   /**
    * Gets the currently selected language code for the translations.
@@ -40,5 +42,3 @@ interface MCRLangService {
    */
   get currentLang(): string;
 }
-
-export { MCRLangService };
