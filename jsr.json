@@ -2,6 +2,10 @@
   "name": "@mycore/mycore",
   "version": "1.0.0",
   "exports": {
+    "./i18n": "./src/i18n/index.ts",
+    "./auth": "./src/auth/index.ts",
+    "./orcid": "./src/orcid/index.ts",
+    "./common/cache": "./src/common/cache/index.ts"
   },
   "publish": {
     "include": [
