@@ -16,8 +16,7 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { createUrl } from '../common/url.ts';
-import { handleError } from '../common/error.ts';
+import { createUrl, handleError } from '../common/helpers.ts';
 
 interface MCRJWTResponse {
   // deno-lint-ignore camelcase
@@ -38,8 +37,8 @@ interface MCRJWTResponse {
  * @throws Will throw an error if the fetch operation fails, if the server response is invalid or unexpected,
  *         or if the login attempt fails.
  */
-export const fetchJWT = async (
-  baseUrl: string,
+export const fetchAccessToken = async (
+  baseUrl: URL | string,
   params?: Record<string, string>,
 ): Promise<string> => {
   const url = createUrl(baseUrl, 'rsc/jwt', params);

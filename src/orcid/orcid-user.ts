@@ -16,7 +16,7 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { handleError } from '../common/error.ts';
+import { handleError } from '../common/helpers.ts';
 
 /**
  * Interface representing the status of an ORCID user.

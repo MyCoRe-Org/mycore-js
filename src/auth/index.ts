@@ -21,4 +21,4 @@
 * @module
 */
 
-export * from './fetch-jwt.ts';
+export * from './helpers.ts';

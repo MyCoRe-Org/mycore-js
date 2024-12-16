@@ -17,6 +17,41 @@
  */
 
 /**
+ * Creates a `URL` object by combining a base URL, a path, query parameters and a fragment.
+ *
+ * @param baseUrl - The base URL, either as a `URL` object or a string
+ * @param path - An optional path to append to the base URL. Defaults to an empty string
+ * @param queryParams - An optional object containing key-value pairs for query parameters
+ * @param fragment - An optional fragment identifier (the part after `#`) to append to the URL
+ *
+ * @returns A `URL` object representing the constructed URL.
+ *
+ * @throws Will throw an error if the `baseUrl` or `path` is invalid.
+ */
+export const createUrl = (
+  baseUrl: URL | string,
+  path?: string,
+  queryParams?: Record<string, string | number>,
+  fragment?: string,
+): URL => {
+  let url: URL;
+  try {
+    url = path ? new URL(path, baseUrl) : new URL(baseUrl);
+  } catch (error) {
+    return handleError('Invalid URL input', error);
+  }
+  if (queryParams) {
+    Object.entries(queryParams).forEach(([key, value]) => {
+      url.searchParams.set(key, value.toString());
+    });
+  }
+  if (fragment) {
+    url.hash = `#${fragment}`;
+  }
+  return url;
+};
+
+/**
  * Handles an error by creating a new error message and throwing an error.
  *
  * @param message - A custom error message to prepend to the error
@@ -24,10 +59,8 @@
  *
  * @throws Always throws an `Error` with a detailed message, including the provided message and the error's message.
  */
-const handleError = (message: string, error: unknown): never => {
+export const handleError = (message: string, error: unknown): never => {
   throw new Error(
     `${message}: ${error instanceof Error ? error.message : 'Unknown error'}`,
   );
 };
-
-export { handleError };

@@ -16,8 +16,7 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { handleError } from '../common/error.ts';
-import { createUrl } from '../common/url.ts';
+import { createUrl, handleError } from '../common/helpers.ts';
 
 /**
  * Generates the URL for initializing the ORCID OAuth process.
