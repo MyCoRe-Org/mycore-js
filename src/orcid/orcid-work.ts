@@ -25,7 +25,14 @@ import { MCRHTTPClient } from '../common/client/index.ts';
  * belongs to the user (`own`) and any other associated works (`other`).
  */
 export interface MCRORCIDWorkStatus {
+  /**
+   * The put code of a work that belongs to the user.
+   */
   own: string | null;
+
+  /**
+   * An array of put codes for works that are associated with the user but not owned by them.
+   */
   other: string[];
 }
 
@@ -86,7 +93,7 @@ export class MCRORCIDWorkService {
    * @returns A promise that resolves when the export operation is completed
    * @throws If the fetch operation fails or if the response is not successful
    */
-  public exportObjectToOrcid = async (
+  public exportObjectToORCID = async (
     orcid: string,
     objectId: string
   ): Promise<void> => {

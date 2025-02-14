@@ -17,7 +17,8 @@
  */
 
 /**
- * This module contains cache functionalities.
+ * @packageDocumentation
+ * This module provides cache utilities.
  */
 
 export * from './cache.ts';

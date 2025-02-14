@@ -1,6 +1,6 @@
 {
   "name": "@golsch/test",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "exports": {
     "./i18n": "./src/i18n/index.ts",
     "./auth": "./src/auth/index.ts",

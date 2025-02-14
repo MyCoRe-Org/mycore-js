@@ -1,4 +1,4 @@
-/*
+/*!
  * This file is part of ***  M y C o R e  ***
  * See https://www.mycore.de/ for details.
  *
@@ -17,8 +17,16 @@
  */
 
 /**
- * @packageDocumentation
- * This module provides language-related utilities and services for MCR backend.
+ * Configuration for access keys.
  */
+export interface MCRAccessKeyConfig {
+  /**
+   * A boolean indicating whether access key for sessions are enabled.
+   */
+  isAccessKeySessionEnabled: boolean;
 
-export * from './service';
+  /**
+   * An array of strings representing the permissions that are allowed for access keys in sessions.
+   */
+  allowedAccessKeySessionPermissions: string[];
+}

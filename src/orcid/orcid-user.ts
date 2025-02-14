@@ -22,7 +22,14 @@ import { MCRHTTPClient } from '../common/client/index.ts';
  * Interface representing the status of an ORCID user.
  */
 export interface MCRORCIDUserStatus {
+  /**
+   * An array of ORCID identifiers associated with the user.
+   * */
   orcids: string[];
+
+  /**
+   * An array of trusted ORCID identifiers.
+   */
   trustedOrcids: string[];
 }
 
@@ -30,9 +37,24 @@ export interface MCRORCIDUserStatus {
  * Interface representing the settings for an ORCID user.
  */
 export interface MCRORCIDUserSettings {
+  /**
+   * Indicates whether the system should always update the user's works in ORCID profile.
+   */
   isAlwaysUpdateWork: boolean | null;
+
+  /**
+   * Indicates whether the system should allow the creation of duplicate works in ORCID profile.
+   */
   isCreateDuplicateWork: boolean | null;
+
+  /**
+   * Indicates whether the system should allow the creation of the user's first work in ORCID  profile.
+   */
   isCreateFirstWork: boolean | null;
+
+  /**
+   * Indicates whether the system should recreate deleted works in ORCID.
+   */
   isRecreateDeletedWork: boolean | null;
 }
 
@@ -52,14 +74,14 @@ export class MCRORCIDUserService {
   }
 
   /**
-   * Fetches the ORCID user status.
+   * Retrieves the ORCID user status.
    * This method retrieves the status of the ORCID user, such as whether they are connected
    * or if their account has any issues.
    *
    * @returns A `Promise` that resolves to the ORCID user status.
    * @throws An error if the request fails or the status cannot be retrieved.
    */
-  public fetchOrcidUserStatus = async (): Promise<MCRORCIDUserStatus> => {
+  public getUserStatus = async (): Promise<MCRORCIDUserStatus> => {
     try {
       return (
         await this.client.get<MCRORCIDUserStatus>('api/orcid/v1/user-status')
@@ -69,7 +91,7 @@ export class MCRORCIDUserService {
     }
   };
 
-  public revokeOrcidOAuth = async (orcid: string): Promise<void> => {
+  public revokeAuth = async (orcid: string): Promise<void> => {
     try {
       await this.client.delete(`rsc/orcid/oauth/${orcid}`);
     } catch {
@@ -78,14 +100,14 @@ export class MCRORCIDUserService {
   };
 
   /**
-   * Fetches the ORCID user settings for a specific user.
+   * Retrieves the ORCID user settings for a specific user.
    * This method retrieves settings for a specific ORCID user, identified by the ORCID identifier.
    *
    * @param orcid - The ORCID identifier of the user whose settings are to be fetched.
    * @returns A `Promise` that resolves to the ORCID user settings.
    * @throws An error if the request fails or the settings cannot be retrieved.
    */
-  public fetchOrcidUserSettings = async (
+  public getUserSettings = async (
     orcid: string
   ): Promise<MCRORCIDUserSettings> => {
     try {
@@ -108,7 +130,7 @@ export class MCRORCIDUserService {
    * @returns A `Promise` that resolves once the settings have been successfully updated.
    * @throws An error if the request fails or the settings cannot be updated.
    */
-  public updateOrcidUserSettings = async (
+  public updateUserSettings = async (
     orcid: string,
     settings: MCRORCIDUserSettings
   ): Promise<void> => {

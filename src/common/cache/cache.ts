@@ -16,8 +16,22 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Represents a cached item with a value and an expiration timestamp.
+ *
+ * The `MCRCacheItem` interface is used to store a value along with its expiration information.
+ * The value is of a generic type `T`, allowing flexibility for different types of cached data.
+ */
 export interface MCRCacheItem<T> {
+  /**
+   * The value of the cached item.
+   */
   value: T;
+
+  /**
+   * The expiration timestamp of the cached item.
+   * If the item does not expire, this will be `null`.
+   */
   expiresAt: number | null;
 }
 

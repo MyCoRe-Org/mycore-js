@@ -17,7 +17,8 @@
  */
 
 /**
- * This module contains functionalities for the auth process.
+ * @packageDocumentation
+ * This module provides ORCID stuff for MCR backend.
  */
 
 export * from './orcid-user.ts';
