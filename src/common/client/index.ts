@@ -17,12 +17,16 @@
  */
 
 /**
+ * This module provides HTTP client.
+ * @module
+ */
+
+/**
  * Interface that defines the structure for authentication strategies.
  */
 export interface MCRClientAuthStrategy {
   /**
    * Returns a record of headers required for authentication.
-   *
    * @returns A record of headers that will be sent with the HTTP request, such as an Authorization header.
    */
   getHeaders(): Record<string, string>;
@@ -55,6 +59,7 @@ export class MCRAccessTokenClientAuthStrategy implements MCRClientAuthStrategy {
 
   /**
    * Getter for the access token.
+   * @returns The access token.
    */
   public getAccessToken(): string {
     return this.accessToken;
@@ -96,7 +101,6 @@ export type MCRHTTPRequestDataType =
 
 /**
  * Checks if a given value is a valid type for request data.
- *
  * @param value - The value to check.
  * @returns `true` if the value is a valid request data type, `false` otherwise.
  */
@@ -122,7 +126,6 @@ export type MCRResponseDataType = 'arraybuffer' | 'json' | 'text';
 
 /**
  * Returns the appropriate `Accept` header value based on the requested response data type.
- *
  * @param responseDataType - The expected response data type. Can be one of `'text'`, `'json'`, or `'arraybuffer'`.
  * @returns A string representing the appropriate `Accept` header value based on the `responseDataType`.
  *          Possible values include `text/plain`, `application/json`, and `application/octet-stream`.
@@ -141,10 +144,8 @@ const getAcceptHeaderValue = (
 
 /**
  * Transforms the response data based on the response type and the request configuration.
- *
  * The `transformResponseData` function processes the response based on its content type and the
  * requested response type. It handles different formats like `arraybuffer`, `text`, `json`, and more.
- *
  * @param response - The response object from the HTTP request.
  * @param requestConfig - The configuration object that contains the expected response type.
  * @returns A promise resolving to the transformed response data of type `T`.
@@ -317,7 +318,6 @@ export class MCRHTTPRequestError extends Error {
 
   /**
    * Creates an instance of the `MCRHTTPRequestError` class.
-   *
    * @param message - The error message describing the issue.
    * @param statusCode - The HTTP status code of the failed request.
    * @param statusText - The HTTP status text associated with the status code.
@@ -330,7 +330,6 @@ export class MCRHTTPRequestError extends Error {
 
   /**
    * Gets the HTTP status code associated with this error.
-   *
    * @returns The status code of the failed request.
    */
   public get statusCode(): number {
@@ -339,7 +338,6 @@ export class MCRHTTPRequestError extends Error {
 
   /**
    * Gets the HTTP status text associated with this error.
-   *
    * @returns The status text describing the error (e.g., "Not Found" for a 404 error).
    */
   public get statusText(): string {
@@ -357,7 +355,6 @@ export class MCRHTTPClient {
 
   /**
    * Creates an instance of `MCRHTTPClient`.
-   *
    * @param baseURL - The base URL that will be used for all HTTP requests made by this client.
    * @param config - Optional configuration object to customize the client's behavior, including timeout and authentication settings.
    */
@@ -368,7 +365,6 @@ export class MCRHTTPClient {
 
   /**
    * Sends an HTTP request with the specified configuration and returns a promise with the response.
-   *
    * @param requestConfig - The configuration for the HTTP request, including method, URL, headers, body, etc.
    * @returns A promise that resolves with the HTTP response.
    * @throws MCRHTTPRequestError - If the request fails or the response status is not `ok`.
@@ -414,7 +410,6 @@ export class MCRHTTPClient {
 
   /**
    * Sends a `GET` request to the server.
-   *
    * @param url - The URL to send the `GET` request to.
    * @param requestConfig - Optional configuration for the request.
    * @returns A promise that resolves with the HTTP response.
@@ -432,7 +427,6 @@ export class MCRHTTPClient {
 
   /**
    * Sends a `DELETE` request to the server.
-   *
    * @param url - The URL to send the `DELETE` request to.
    * @param requestConfig - Optional configuration for the request.
    * @returns A promise that resolves with the HTTP response.
@@ -450,7 +444,6 @@ export class MCRHTTPClient {
 
   /**
    * Sends a `PATCH` request to the server with data.
-   *
    * @param url - The URL to send the `PATCH` request to.
    * @param data - The data to send in the request body.
    * @param requestConfig - Optional configuration for the request.
@@ -466,7 +459,6 @@ export class MCRHTTPClient {
 
   /**
    * Sends a `POST` request to the server with data.
-   *
    * @param url - The URL to send the `POST` request to.
    * @param data - The data to send in the request body.
    * @param requestConfig - Optional configuration for the request.
@@ -482,7 +474,6 @@ export class MCRHTTPClient {
 
   /**
    * Sends a `PUT` request to the server with data.
-   *
    * @param url - The URL to send the `PUT` request to.
    * @param data - The data to send in the request body.
    * @param requestConfig - Optional configuration for the request.

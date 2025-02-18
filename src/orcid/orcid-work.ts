@@ -47,7 +47,6 @@ export class MCRORCIDWorkService {
 
   /**
    * Creates an instance of the `MCROrcidUserService` class.
-   *
    * @param client - An instance of `MCRHttpClient` used to send HTTP requests.
    */
   constructor(client: MCRHTTPClient) {
@@ -56,14 +55,12 @@ export class MCRORCIDWorkService {
 
   /**
    * Fetches the status of a work for a specific ORCID and object ID.
-   *
    * This method fetches the status of a work (owned by the user or other associated works) using
    * the provided access token, ORCID, and object ID. It can operate in "member" or "public" mode,
    * depending on the `useMember` flag.
-   *
    * @param orcid - The ORCID of the user for whom the work status is to be fetched
    * @param objectId - The object ID of the work whose status is being requested
-   * @param useMember - A boolean flag indicating whether to fetch in "member" mode (`true`) or "public" mode (`false`)
+   * @param mode - A flag indicating whether to fetch in "member" mode or "public" mode
    * @returns A promise that resolves to an `MCROrcidWorkStatus` object containing the status of the work
    * @throws If the fetch operation fails or if the response is not successful
    */
@@ -85,9 +82,7 @@ export class MCRORCIDWorkService {
 
   /**
    * Exports an object to ORCID for a specific user and object ID.
-   *
    * This method sends a POST request to export the specified object to ORCID for the provided ORCID.
-   *
    * @param orcid - The ORCID of the user to whom the object should be exported
    * @param objectId - The object ID of the work to be exported
    * @returns A promise that resolves when the export operation is completed

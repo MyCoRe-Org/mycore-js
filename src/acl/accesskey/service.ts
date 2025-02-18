@@ -27,7 +27,6 @@ import {
 
 /**
  * Extracts the response data and returns the access key summary.
- *
  * @param response - The response object containing the data and headers.
  * @returns The parsed access keys summary.
  */
@@ -79,7 +78,6 @@ export class MCRAccessKeyService {
 
   /**
    * Creates an instance of AccessKeyService.
-   *
    * @param client - The HTTP client used to make API requests.
    */
   constructor(client: MCRHTTPClient) {
@@ -88,7 +86,6 @@ export class MCRAccessKeyService {
 
   /**
    * Retrieves a list of access keys.
-   *
    * @param options - The options to filter and paginate the access keys (optional).
    * @returns A promise that resolves with the access keys information.
    */
@@ -121,7 +118,6 @@ export class MCRAccessKeyService {
 
   /**
    * Retrieves a single access key by its ID.
-   *
    * @param id - The ID of the access key.
    * @returns A promise that resolves with the access key data.
    */
@@ -135,7 +131,6 @@ export class MCRAccessKeyService {
 
   /**
    * Creates a new access key.
-   *
    * @param accessKey - The data for the new access key.
    * @returns A promise that resolves with the ID of the created access key.
    */
@@ -154,7 +149,6 @@ export class MCRAccessKeyService {
 
   /**
    * Updates an existing access key.
-   *
    * @param id - The ID of the access key.
    * @param accessKey - The data to update the access key with.
    */
@@ -173,7 +167,6 @@ export class MCRAccessKeyService {
 
   /**
    * Partially updates an existing access key.
-   *
    * @param id - The ID of the access key.
    * @param accessKey - The data to update the access key with.
    */
@@ -192,7 +185,6 @@ export class MCRAccessKeyService {
 
   /**
    * Deletes an access key.
-   *
    * @param id - The ID of the access key to delete.
    */
   public async deleteAccessKey(id: string): Promise<void> {

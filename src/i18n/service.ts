@@ -23,7 +23,6 @@ const BASE_PATH = 'rsc/locale';
 
 /**
  * Generates the path for a translation based on the provided name and optional language.
- *
  * @param name - The name of the translation file.
  * @param lang - (Optional) The language code to include in the path.
  * @returns The full path to the translation file.
@@ -43,8 +42,7 @@ export class MCRLangService {
 
   /**
    * Creates an instance of `MCRLangService`.
-   *
-   * @param baseUrl - The base URL or URL object.
+   * @param baseURL - The base URL or URL object.
    */
   constructor(baseURL: string | URL) {
     this.baseURL = baseURL;
@@ -52,7 +50,6 @@ export class MCRLangService {
 
   /**
    * Returns the current language in ISO 639 (two character) format.
-   *
    * @returns A promise that resolves the current language.
    */
   public async getCurrentLanguage(): Promise<string> {
@@ -66,7 +63,6 @@ export class MCRLangService {
 
   /**
    * Returns the current language in ISO 639 (two character) format.
-   *
    * @returns A promise that resolves an array of all available languages.
    */
   public async getLanguages(): Promise<string[]> {
@@ -80,7 +76,6 @@ export class MCRLangService {
 
   /**
    * Fetches a collection of translations from the given base URL and language.
-   *
    * @param prefix - The prefix for the translation.
    * @param lang - (Optional) The language code for the translations (e.g., 'en', 'de'). If not provided, the default language will be used.
    * @returns A promise that resolves to an object containing key-value pairs for translations.
@@ -100,7 +95,6 @@ export class MCRLangService {
 
   /**
    * Fetches a single translation for a given name from the specified base URL and language.
-   *
    * @param name - The name or key of the translation (e.g., a specific word or phrase).
    * @param lang - (Optional) The language code for the translation (e.g., 'en', 'de'). If not provided, the default language will be used.
    * @returns A promise that resolves to the translation as a string.

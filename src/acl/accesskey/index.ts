@@ -17,8 +17,8 @@
  */
 
 /**
- * @packageDocumentation
  * This module provides access key stuff for MCR backend.
+ * @module
  */
 
 export * from './model';

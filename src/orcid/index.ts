@@ -17,8 +17,8 @@
  */
 
 /**
- * @packageDocumentation
  * This module provides ORCID stuff for MCR backend.
+ * @module
  */
 
 export * from './orcid-user.ts';

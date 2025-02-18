@@ -24,7 +24,7 @@ import { MCRHTTPClient } from '../common/client/index.ts';
 export interface MCRORCIDUserStatus {
   /**
    * An array of ORCID identifiers associated with the user.
-   * */
+   */
   orcids: string[];
 
   /**
@@ -66,7 +66,6 @@ export class MCRORCIDUserService {
 
   /**
    * Creates an instance of the `MCROrcidUserService` class.
-   *
    * @param client - An instance of `MCRHttpClient` used to send HTTP requests.
    */
   constructor(client: MCRHTTPClient) {
@@ -77,7 +76,6 @@ export class MCRORCIDUserService {
    * Retrieves the ORCID user status.
    * This method retrieves the status of the ORCID user, such as whether they are connected
    * or if their account has any issues.
-   *
    * @returns A `Promise` that resolves to the ORCID user status.
    * @throws An error if the request fails or the status cannot be retrieved.
    */
@@ -102,7 +100,6 @@ export class MCRORCIDUserService {
   /**
    * Retrieves the ORCID user settings for a specific user.
    * This method retrieves settings for a specific ORCID user, identified by the ORCID identifier.
-   *
    * @param orcid - The ORCID identifier of the user whose settings are to be fetched.
    * @returns A `Promise` that resolves to the ORCID user settings.
    * @throws An error if the request fails or the settings cannot be retrieved.
@@ -124,7 +121,6 @@ export class MCRORCIDUserService {
   /**
    * Updates the ORCID user settings for a specific user.
    * This method updates the settings for the specified ORCID user with new provided settings.
-   *
    * @param orcid - The ORCID identifier of the user whose settings are to be updated.
    * @param settings - The updated settings to be applied for the ORCID user.
    * @returns A `Promise` that resolves once the settings have been successfully updated.

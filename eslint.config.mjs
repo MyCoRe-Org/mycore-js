@@ -1,7 +1,7 @@
 import eslint from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import tsdoc from 'eslint-plugin-tsdoc';
+import jsdoc from 'eslint-plugin-jsdoc';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
@@ -14,10 +14,10 @@ export default tseslint.config(
     extends: [
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.strictTypeChecked,
+      jsdoc.configs["flat/recommended-typescript"]
     ],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
-      tsdoc,
     },
     languageOptions: {
       globals: globals.browser,
@@ -28,7 +28,7 @@ export default tseslint.config(
       },
     },
     rules: {
-      'tsdoc/syntax': 'warn',
+      "jsdoc/require-description": 1,
     },
   },
   {

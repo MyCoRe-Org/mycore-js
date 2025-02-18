@@ -18,7 +18,6 @@
 
 /**
  * Generates the URL for initializing the ORCID auth process.
- *
  * @param baseURL - The base URL for the auth initiation.
  * @param scope - An optional scope parameter that defines the level of access requested during OAuth authentication
  * @returns The constructed URL for initiating the ORCID auth process

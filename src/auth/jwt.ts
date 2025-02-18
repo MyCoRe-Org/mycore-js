@@ -53,11 +53,9 @@ export interface MCRJWTRequestOptions {
 // TODO use MCRHttpClient?
 /**
  * Fetches a JWT (JSON Web Token) from the given base URL, optionally including user and session attributes.
- *
  * This function makes a GET request to the `/rsc/jwt` endpoint and retrieves a JWT token, which can
  * be used for authenticating subsequent API requests. If user or session attributes are provided,
  * they are appended to the URL as query parameters.
- *
  * @param baseUrl - The base URL to make the JWT request to.
  * @param options - The options containing user and session attributes (optional).
  * @returns A promise that resolves with the JWT access token if the login is successful.

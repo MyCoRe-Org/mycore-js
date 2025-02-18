@@ -37,13 +37,11 @@ export interface MCRCacheItem<T> {
 
 /**
  * A generic interface representing a cache with basic CRUD operations and TTL support.
- *
- * @typeParam T - The type of the cached values. This can be any type, such as `string`, `number`, or more complex objects
+ * @param T - The type of the cached values. This can be any type, such as `string`, `number`, or more complex objects
  */
 export interface MCRCache<T> {
   /**
    * Sets a value in the cache with an optional time-to-live (TTL) in seconds.
-   *
    * @param key - The key to associate with the value
    * @param value - The value to store in the cache
    * @param ttl - Optional time-to-live for the cache entry in seconds
@@ -52,7 +50,6 @@ export interface MCRCache<T> {
 
   /**
    * Retrieves a value from the cache by its key.
-   *
    * @param key - The key of the cached value to retrieve
    * @returns The cached value if it exists, or `null` if the key does not exist in the cache
    */
@@ -60,14 +57,12 @@ export interface MCRCache<T> {
 
   /**
    * Retrieves all items from the cache.
-   *
    * @returns The all item of the cache.
    */
   getAllItems(): Record<string, T>;
 
   /**
    * Checks if a key exists in the cache.
-   *
    * @param key - The key to check in the cache
    * @returns `true` if the key exists in the cache, `false` otherwise
    */
@@ -75,7 +70,6 @@ export interface MCRCache<T> {
 
   /**
    * Deletes a value from the cache by its key.
-   *
    * @param key - The key of the cached value to delete
    */
   deleteItem(key: string): void;
@@ -87,7 +81,6 @@ export interface MCRCache<T> {
 
   /**
    * Gets the number of items currently in the cache.
-   *
    * @returns The number of cached items
    */
   size(): number;

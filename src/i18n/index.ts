@@ -17,8 +17,8 @@
  */
 
 /**
- * @packageDocumentation
  * This module provides language-related utilities and services for MCR backend.
+ * @module
  */
 
 export * from './service';

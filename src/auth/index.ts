@@ -17,8 +17,8 @@
  */
 
 /**
- * @packageDocumentation
  * This module provides auth stuff for MCR backend.
+ * @module
  */
 
 export * from './jwt';
