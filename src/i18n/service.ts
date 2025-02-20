@@ -34,18 +34,18 @@ const getTranslationPath = (name: string, lang?: string): string => {
 /**
  * Service for handling language-related operations.
  */
-export class MCRLangService {
+export class LangService {
   /**
    *  The base URL used for requests.
    */
-  private baseURL: string | URL;
+  private baseUrl: string | URL;
 
   /**
-   * Creates an instance of `MCRLangService`.
-   * @param baseURL - The base URL or URL object.
+   * Creates an instance of `LangService`.
+   * @param baseUrl - The base URL or URL object.
    */
-  constructor(baseURL: string | URL) {
-    this.baseURL = baseURL;
+  constructor(baseUrl: string | URL) {
+    this.baseUrl = baseUrl;
   }
 
   /**
@@ -53,7 +53,7 @@ export class MCRLangService {
    * @returns A promise that resolves the current language.
    */
   public async getCurrentLanguage(): Promise<string> {
-    const url = new URL(`${BASE_PATH}/language`, this.baseURL);
+    const url = new URL(`${BASE_PATH}/language`, this.baseUrl);
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to load current language');
@@ -66,7 +66,7 @@ export class MCRLangService {
    * @returns A promise that resolves an array of all available languages.
    */
   public async getLanguages(): Promise<string[]> {
-    const url = new URL(`${BASE_PATH}/languages`, this.baseURL);
+    const url = new URL(`${BASE_PATH}/languages`, this.baseUrl);
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to load languages');
@@ -85,7 +85,7 @@ export class MCRLangService {
     prefix: string,
     lang?: string
   ): Promise<Record<string, string>> {
-    const url = new URL(getTranslationPath(prefix, lang), this.baseURL);
+    const url = new URL(getTranslationPath(prefix, lang), this.baseUrl);
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to load translations');
@@ -101,7 +101,7 @@ export class MCRLangService {
    * @throws An error if the response is not successful (non-2xx HTTP status).
    */
   public async translate(name: string, lang?: string): Promise<string> {
-    const url = new URL(getTranslationPath(name, lang), this.baseURL);
+    const url = new URL(getTranslationPath(name, lang), this.baseUrl);
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to load translation');

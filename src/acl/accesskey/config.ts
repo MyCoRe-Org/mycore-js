@@ -19,7 +19,7 @@
 /**
  * Configuration for access keys.
  */
-export interface MCRAccessKeyConfig {
+export interface AccessKeyConfig {
   /**
    * A boolean indicating whether access key for sessions are enabled.
    */

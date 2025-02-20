@@ -19,7 +19,7 @@
 /**
  * Represents the response from a JWT (JSON Web Token) authentication request.
  */
-interface MCRJWTResponse {
+interface JwtResponse {
   /**
    * A boolean indicating whether the login was successful.
    * If true, the user has successfully logged in and an access token is provided.
@@ -36,7 +36,7 @@ interface MCRJWTResponse {
 /**
  * Options for making a JWT request.
  */
-export interface MCRJWTRequestOptions {
+export interface JwtRequestOptions {
   /**
    * An optional array of user-specific attributes to include in the JWT request.
    * These attributes can represent custom user data required for authentication.
@@ -50,7 +50,7 @@ export interface MCRJWTRequestOptions {
   sessionAttributes?: string[];
 }
 
-// TODO use MCRHttpClient?
+// TODO use HttpClient?
 /**
  * Fetches a JWT (JSON Web Token) from the given base URL, optionally including user and session attributes.
  * This function makes a GET request to the `/rsc/jwt` endpoint and retrieves a JWT token, which can
@@ -61,9 +61,9 @@ export interface MCRJWTRequestOptions {
  * @returns A promise that resolves with the JWT access token if the login is successful.
  * @throws An error if the request fails or if the login is unsuccessful.
  */
-export const fetchJWT = async (
+export const fetchJwt = async (
   baseUrl: string | URL,
-  options?: MCRJWTRequestOptions
+  options?: JwtRequestOptions
 ): Promise<string> => {
   try {
     const url = new URL('rsc/jwt', baseUrl);
@@ -94,7 +94,7 @@ export const fetchJWT = async (
     if (!response.ok) {
       throw new Error('Unauthorized or invalid token');
     }
-    const result: MCRJWTResponse = (await response.json()) as MCRJWTResponse;
+    const result = (await response.json()) as JwtResponse;
     if (!result.login_success) {
       throw new Error('Login failed');
     }

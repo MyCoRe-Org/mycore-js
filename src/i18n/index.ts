@@ -17,7 +17,7 @@
  */
 
 /**
- * This module provides language-related utilities and services for MCR backend.
+ * This module provides language-related utilities and services for MyCoRe backend.
  * @module
  */
 

@@ -17,7 +17,7 @@
  */
 
 /**
- * This module provides access key stuff for MCR backend.
+ * This module provides access key stuff for MyCoRe backend.
  * @module
  */
 

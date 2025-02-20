@@ -16,21 +16,21 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MCRCache, MCRCacheItem } from './cache';
+import { Cache, CacheItem } from './cache';
 
 /**
  * In-memory cache implementation using a Map.
- * Implements the MCRCache interface for caching items with optional expiration times.
+ * Implements the `Cache` interface for caching items with optional expiration times.
  * @param T - The type of value stored in the cache.
  */
-export class MCRMemoryCache<T> implements MCRCache<T> {
-  private map: Map<string, MCRCacheItem<T>>;
+export class MemoryCache<T> implements Cache<T> {
+  private map: Map<string, CacheItem<T>>;
 
   /**
-   * Creates an instance of MCRMemoryCache.
+   * Creates an instance of `MemoryCache`.
    */
   constructor() {
-    this.map = new Map<string, MCRCacheItem<T>>();
+    this.map = new Map<string, CacheItem<T>>();
   }
 
   public setItem(key: string, value: T, ttl = 0): void {

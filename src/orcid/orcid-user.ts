@@ -16,12 +16,12 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MCRHTTPClient } from '../common/client/index.ts';
+import { HttpClient } from '../common/client/index.ts';
 
 /**
  * Interface representing the status of an ORCID user.
  */
-export interface MCRORCIDUserStatus {
+export interface OrcidUserStatus {
   /**
    * An array of ORCID identifiers associated with the user.
    */
@@ -36,7 +36,7 @@ export interface MCRORCIDUserStatus {
 /**
  * Interface representing the settings for an ORCID user.
  */
-export interface MCRORCIDUserSettings {
+export interface OrcidUserSettings {
   /**
    * Indicates whether the system should always update the user's works in ORCID profile.
    */
@@ -59,16 +59,21 @@ export interface MCRORCIDUserSettings {
 }
 
 /**
+ * Base path for orcid resource endpoint.
+ */
+const API_URL = 'api/orcid/v1/';
+
+/**
  * Service for interacting with ORCID user status and settings.
  */
-export class MCRORCIDUserService {
-  private client: MCRHTTPClient;
+export class OrcidUserService {
+  private client: HttpClient;
 
   /**
-   * Creates an instance of the `MCROrcidUserService` class.
-   * @param client - An instance of `MCRHttpClient` used to send HTTP requests.
+   * Creates an instance of the `OrcidUserService` class.
+   * @param client - An instance of `HttpClient` used to send HTTP requests.
    */
-  constructor(client: MCRHTTPClient) {
+  constructor(client: HttpClient) {
     this.client = client;
   }
 
@@ -79,11 +84,10 @@ export class MCRORCIDUserService {
    * @returns A `Promise` that resolves to the ORCID user status.
    * @throws An error if the request fails or the status cannot be retrieved.
    */
-  public getUserStatus = async (): Promise<MCRORCIDUserStatus> => {
+  public getUserStatus = async (): Promise<OrcidUserStatus> => {
     try {
-      return (
-        await this.client.get<MCRORCIDUserStatus>('api/orcid/v1/user-status')
-      ).data;
+      return (await this.client.get<OrcidUserStatus>(`${API_URL}user-status`))
+        .data;
     } catch {
       throw new Error(`Failed to fetch Orcid user status}`);
     }
@@ -106,11 +110,11 @@ export class MCRORCIDUserService {
    */
   public getUserSettings = async (
     orcid: string
-  ): Promise<MCRORCIDUserSettings> => {
+  ): Promise<OrcidUserSettings> => {
     try {
       return (
-        await this.client.get<MCRORCIDUserSettings>(
-          `api/orcid/v1/user-properties/${orcid}`
+        await this.client.get<OrcidUserSettings>(
+          `${API_URL}user-properties/${orcid}`
         )
       ).data;
     } catch {
@@ -128,10 +132,10 @@ export class MCRORCIDUserService {
    */
   public updateUserSettings = async (
     orcid: string,
-    settings: MCRORCIDUserSettings
+    settings: OrcidUserSettings
   ): Promise<void> => {
     try {
-      await this.client.put(`api/orcid/v1/user-properties/${orcid}`, settings);
+      await this.client.put(`${API_URL}user-properties/${orcid}`, settings);
     } catch {
       throw new Error(`Failed to update ORCID user settings for ${orcid}.`);
     }

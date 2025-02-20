@@ -16,15 +16,15 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MCRHTTPClient } from '../common/client/index.ts';
+import { HttpClient } from '../common/client/index.ts';
 
 /**
  * Interface representing the status of an ORCID work.
  *
- * The `MCROrcidWorkStatus` interface describes the status of a work, including whether the work
+ * The `OrcidWorkStatus` interface describes the status of a work, including whether the work
  * belongs to the user (`own`) and any other associated works (`other`).
  */
-export interface MCRORCIDWorkStatus {
+export interface OrcidWorkStatus {
   /**
    * The put code of a work that belongs to the user.
    */
@@ -37,19 +37,24 @@ export interface MCRORCIDWorkStatus {
 }
 
 /**
+ * Base path for orcid resource endpoint.
+ */
+const API_URL = 'api/orcid/v1/';
+
+/**
  * A service for interacting with ORCID works, including fetching work status and exporting objects.
  *
  * This service allows you to fetch the status of a work by its `objectId` and ORCID, and to export
  * works to ORCID. It can operate in both "member" and "public" modes.
  */
-export class MCRORCIDWorkService {
-  private client: MCRHTTPClient;
+export class OrcidWorkService {
+  private client: HttpClient;
 
   /**
-   * Creates an instance of the `MCROrcidUserService` class.
-   * @param client - An instance of `MCRHttpClient` used to send HTTP requests.
+   * Creates an instance of the `OrcidUserService` class.
+   * @param client - An instance of `HttpClient` used to send HTTP requests.
    */
-  constructor(client: MCRHTTPClient) {
+  constructor(client: HttpClient) {
     this.client = client;
   }
 
@@ -61,18 +66,18 @@ export class MCRORCIDWorkService {
    * @param orcid - The ORCID of the user for whom the work status is to be fetched
    * @param objectId - The object ID of the work whose status is being requested
    * @param mode - A flag indicating whether to fetch in "member" mode or "public" mode
-   * @returns A promise that resolves to an `MCROrcidWorkStatus` object containing the status of the work
+   * @returns A promise that resolves to an `OrcidWorkStatus` object containing the status of the work
    * @throws If the fetch operation fails or if the response is not successful
    */
   public fetchWorkStatus = async (
     orcid: string,
     objectId: string,
     mode: 'member' | 'public'
-  ): Promise<MCRORCIDWorkStatus> => {
+  ): Promise<OrcidWorkStatus> => {
     try {
       return (
-        await this.client.get<MCRORCIDWorkStatus>(
-          `api/orcid/v1/${mode}/${orcid}/works/object/${objectId}`
+        await this.client.get<OrcidWorkStatus>(
+          `${API_URL}${mode}/${orcid}/works/object/${objectId}`
         )
       ).data;
     } catch {
@@ -88,13 +93,13 @@ export class MCRORCIDWorkService {
    * @returns A promise that resolves when the export operation is completed
    * @throws If the fetch operation fails or if the response is not successful
    */
-  public exportObjectToORCID = async (
+  public exportObject = async (
     orcid: string,
     objectId: string
   ): Promise<void> => {
     try {
       await this.client.post(
-        `api/orcid/v1/member/${orcid}/works/object/${objectId}`
+        `${API_URL}member/${orcid}/works/object/${objectId}`
       );
     } catch {
       throw new Error(`Failed to export ${objectId} to ${orcid}.`);

@@ -19,7 +19,7 @@
 /**
  * Represents an access key in the system.
  */
-export interface MCRAccessKey {
+export interface AccessKey {
   /**
    * The unique identifier for the access key.
    */
@@ -60,7 +60,7 @@ export interface MCRAccessKey {
 /**
  * DTO for creating a new access key.
  */
-export interface MCRCreateAccessKeyDTO {
+export interface CreateAccessKeyDto {
   /**
    * A reference or name associated with the access key.
    */
@@ -96,7 +96,7 @@ export interface MCRCreateAccessKeyDTO {
 /**
  * DTO for updating an access key.
  */
-export interface MCRUpdateAccessKeyDTO {
+export interface UpdateAccessKeyDto {
   /**
    * A reference or name associated with the access key.
    */
@@ -132,7 +132,7 @@ export interface MCRUpdateAccessKeyDTO {
 /**
  * DTO for partially updating an access key.
  */
-export interface MCRPartialUpdateAccessKeyDTO {
+export interface PartialUpdateAccessKeyDto {
   /**
    * An optional reference or name associated with the access key.
    */
@@ -163,11 +163,11 @@ export interface MCRPartialUpdateAccessKeyDTO {
 /**
  * Information about the access keys.
  */
-export interface MCRAccessKeySummary {
+export interface AccessKeySummary {
   /**
    * An array access keys that are part of the summary.
    */
-  accessKeys: MCRAccessKey[];
+  accessKeys: AccessKey[];
 
   /**
    * The total count of all access keys.

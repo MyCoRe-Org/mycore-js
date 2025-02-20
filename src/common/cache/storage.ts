@@ -16,19 +16,19 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MCRCache, MCRCacheItem } from './cache';
+import { Cache, CacheItem } from './cache';
 
 /**
  * Abstract class representing a cache storage using the browser's Storage API.
- * Implements the MCRCache interface for caching items with optional expiration times.
+ * Implements the `Cache` interface for caching items with optional expiration times.
  * @param T - The type of value stored in the cache.
  */
-export abstract class StorageCache<T> implements MCRCache<T> {
+export abstract class StorageCache<T> implements Cache<T> {
   private storage: Storage;
 
   /**
-   * Creates an instance of StorageCache.
-   * @param storage - The Storage instance (localStorage or sessionStorage) to use for caching.
+   * Creates an instance of `StorageCache`.
+   * @param storage - The Storage instance (`localStorage` or `sessionStorage`) to use for caching.
    */
   constructor(storage: Storage) {
     this.storage = storage;
@@ -44,7 +44,7 @@ export abstract class StorageCache<T> implements MCRCache<T> {
     if (!rawCachedItem) {
       return null;
     }
-    const cachedItem = JSON.parse(rawCachedItem) as MCRCacheItem<T>;
+    const cachedItem = JSON.parse(rawCachedItem) as CacheItem<T>;
     if (cachedItem.expiresAt !== null && cachedItem.expiresAt < Date.now()) {
       this.storage.removeItem(key);
       return null;

@@ -17,7 +17,7 @@
  */
 
 /**
- * This module provides ORCID stuff for MCR backend.
+ * This module provides ORCID stuff for MyCoRe backend.
  * @module
  */
 

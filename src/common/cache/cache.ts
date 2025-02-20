@@ -19,10 +19,10 @@
 /**
  * Represents a cached item with a value and an expiration timestamp.
  *
- * The `MCRCacheItem` interface is used to store a value along with its expiration information.
+ * The `CacheItem` interface is used to store a value along with its expiration information.
  * The value is of a generic type `T`, allowing flexibility for different types of cached data.
  */
-export interface MCRCacheItem<T> {
+export interface CacheItem<T> {
   /**
    * The value of the cached item.
    */
@@ -39,7 +39,7 @@ export interface MCRCacheItem<T> {
  * A generic interface representing a cache with basic CRUD operations and TTL support.
  * @param T - The type of the cached values. This can be any type, such as `string`, `number`, or more complex objects
  */
-export interface MCRCache<T> {
+export interface Cache<T> {
   /**
    * Sets a value in the cache with an optional time-to-live (TTL) in seconds.
    * @param key - The key to associate with the value

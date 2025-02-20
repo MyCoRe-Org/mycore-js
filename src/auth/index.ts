@@ -17,7 +17,7 @@
  */
 
 /**
- * This module provides auth stuff for MCR backend.
+ * This module provides auth stuff for MyCoRe backend.
  * @module
  */
 

@@ -16,13 +16,13 @@
  * along with MyCoRe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MCRHTTPClient, MCRHTTPResponse } from '../../common/client';
+import { HttpClient, HttpResponse } from '../../common/client';
 import {
-  MCRAccessKey,
-  MCRCreateAccessKeyDTO,
-  MCRUpdateAccessKeyDTO,
-  MCRPartialUpdateAccessKeyDTO,
-  MCRAccessKeySummary,
+  AccessKey,
+  CreateAccessKeyDto,
+  UpdateAccessKeyDto,
+  PartialUpdateAccessKeyDto,
+  AccessKeySummary,
 } from './model';
 
 /**
@@ -31,8 +31,8 @@ import {
  * @returns The parsed access keys summary.
  */
 const createSummary = (
-  response: MCRHTTPResponse<MCRAccessKey[]>
-): MCRAccessKeySummary => {
+  response: HttpResponse<AccessKey[]>
+): AccessKeySummary => {
   const totalCount = response.headers['x-total-count'];
   return {
     accessKeys: response.data,
@@ -43,7 +43,7 @@ const createSummary = (
 /**
  * Represents the options used to query and retrieve access keys.
  */
-export interface MCRGetAccessKeysOptions {
+export interface GetAccessKeysOptions {
   /**
    * An optional array of permissions to filter the access keys by.
    */
@@ -73,14 +73,14 @@ const API_URL = 'api/v2/access-keys';
 /**
  * Service for managing access keys.
  */
-export class MCRAccessKeyService {
-  private client: MCRHTTPClient;
+export class AccessKeyService {
+  private client: HttpClient;
 
   /**
-   * Creates an instance of AccessKeyService.
+   * Creates an instance of `AccessKeyService`.
    * @param client - The HTTP client used to make API requests.
    */
-  constructor(client: MCRHTTPClient) {
+  constructor(client: HttpClient) {
     this.client = client;
   }
 
@@ -90,8 +90,8 @@ export class MCRAccessKeyService {
    * @returns A promise that resolves with the access keys information.
    */
   public async getAccessKeys(
-    options?: MCRGetAccessKeysOptions
-  ): Promise<MCRAccessKeySummary> {
+    options?: GetAccessKeysOptions
+  ): Promise<AccessKeySummary> {
     const searchParams = new URLSearchParams();
     if (options?.reference) {
       searchParams.set('reference', options.reference);
@@ -107,7 +107,7 @@ export class MCRAccessKeyService {
     }
     try {
       return createSummary(
-        await this.client.get<MCRAccessKey[]>(
+        await this.client.get<AccessKey[]>(
           `${API_URL}?${searchParams.toString()}`
         )
       );
@@ -121,9 +121,9 @@ export class MCRAccessKeyService {
    * @param id - The ID of the access key.
    * @returns A promise that resolves with the access key data.
    */
-  public async getAccessKey(id: string): Promise<MCRAccessKey> {
+  public async getAccessKey(id: string): Promise<AccessKey> {
     try {
-      return (await this.client.get<MCRAccessKey>(`${API_URL}/${id}`)).data;
+      return (await this.client.get<AccessKey>(`${API_URL}/${id}`)).data;
     } catch (error) {
       throw new Error(`Failed to get access key: ${(error as Error).message}`);
     }
@@ -134,9 +134,7 @@ export class MCRAccessKeyService {
    * @param accessKey - The data for the new access key.
    * @returns A promise that resolves with the ID of the created access key.
    */
-  public async createAccessKey(
-    accessKey: MCRCreateAccessKeyDTO
-  ): Promise<string> {
+  public async createAccessKey(accessKey: CreateAccessKeyDto): Promise<string> {
     try {
       const response = await this.client.post(API_URL, accessKey);
       return response.headers['location'].split('/').pop() as string;
@@ -154,7 +152,7 @@ export class MCRAccessKeyService {
    */
   public async updateAccessKey(
     id: string,
-    accessKey: MCRUpdateAccessKeyDTO
+    accessKey: UpdateAccessKeyDto
   ): Promise<void> {
     try {
       await this.client.post(`${API_URL}/${id}`, accessKey);
@@ -172,7 +170,7 @@ export class MCRAccessKeyService {
    */
   public async patchAccessKey(
     id: string,
-    accessKey: MCRPartialUpdateAccessKeyDTO
+    accessKey: PartialUpdateAccessKeyDto
   ): Promise<void> {
     try {
       await this.client.patch(`${API_URL}/${id}`, accessKey);
